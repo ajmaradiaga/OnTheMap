@@ -73,14 +73,14 @@
                                 </variation>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.80000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gw3-7o-rfe">
-                                <rect key="frame" x="15.5" y="264" width="568" height="45"/>
+                                <rect key="frame" x="16" y="264" width="568" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF4-6V-AzC">
-                                <rect key="frame" x="15.5" y="317" width="568" height="45"/>
+                                <rect key="frame" x="16" y="317" width="568" height="45"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.24313725489999999" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
                                 <state key="normal" title="Login">
@@ -92,7 +92,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aq4-HZ-kaY">
-                                <rect key="frame" x="171" y="381" width="256" height="34"/>
+                                <rect key="frame" x="172" y="381" width="256" height="34"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
                                 <state key="normal" title="Don't have an account? Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,6 +111,9 @@
                                     <rect key="frame" x="142" y="358" width="117.5" height="19"/>
                                 </variation>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8cN-Hg-PAw">
+                                <rect key="frame" x="282" y="282" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.9882352941176471" green="0.49411764705882355" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -118,6 +121,7 @@
                             <constraint firstItem="gw3-7o-rfe" firstAttribute="top" secondItem="ZT9-TX-Xae" secondAttribute="bottom" constant="8" id="7Lc-kZ-Dj8"/>
                             <constraint firstItem="Icb-SS-27A" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="GOq-Z8-7x7"/>
                             <constraint firstItem="ZT9-TX-Xae" firstAttribute="width" secondItem="gw3-7o-rfe" secondAttribute="width" id="Ga9-F5-rOe"/>
+                            <constraint firstAttribute="centerY" secondItem="8cN-Hg-PAw" secondAttribute="centerY" constant="-0.5" id="MVe-f5-pyF"/>
                             <constraint firstItem="Aq4-HZ-kaY" firstAttribute="top" secondItem="IF4-6V-AzC" secondAttribute="bottom" constant="19" id="NWZ-aL-NeB"/>
                             <constraint firstItem="IF4-6V-AzC" firstAttribute="leading" secondItem="gw3-7o-rfe" secondAttribute="leading" id="PuT-83-bXk"/>
                             <constraint firstAttribute="centerX" secondItem="gw3-7o-rfe" secondAttribute="centerX" id="Q7g-Hu-faH"/>
@@ -129,11 +133,13 @@
                             <constraint firstItem="ZT9-TX-Xae" firstAttribute="centerX" secondItem="LFg-b9-g8h" secondAttribute="centerX" id="co7-VV-oeP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZT9-TX-Xae" secondAttribute="trailing" id="hpJ-Md-NU3"/>
                             <constraint firstItem="Icb-SS-27A" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="j2p-TC-OPC"/>
+                            <constraint firstAttribute="centerX" secondItem="8cN-Hg-PAw" secondAttribute="centerX" constant="-0.5" id="mMB-tG-Eah"/>
                             <constraint firstItem="IF4-6V-AzC" firstAttribute="height" secondItem="gw3-7o-rfe" secondAttribute="height" id="se0-yb-Px5"/>
                             <constraint firstItem="ZT9-TX-Xae" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="wQq-xP-f47"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="8cN-Hg-PAw" id="MxG-y9-CiS"/>
                         <outlet property="passwordTextField" destination="gw3-7o-rfe" id="thx-CT-sbG"/>
                         <outlet property="usernameTextField" destination="ZT9-TX-Xae" id="fng-Tt-bM9"/>
                     </connections>
@@ -230,6 +236,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MvG-2z-xVk">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MnY-uj-jSb" id="0iN-nu-jIW"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -310,7 +319,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.7803921568627451" green="0.78431372549019607" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Kni-xk-7oT" firstAttribute="centerX" secondItem="wtB-qe-bAm" secondAttribute="centerX" id="13T-lJ-Xsr"/>
                                     <constraint firstItem="wtB-qe-bAm" firstAttribute="top" secondItem="b8O-qG-7f1" secondAttribute="bottom" constant="8" id="9v4-2D-QnB"/>
@@ -329,7 +338,7 @@
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="19"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4KH-gU-x4l">
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Link to share here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4KH-gU-x4l">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="182"/>
                                 <color key="backgroundColor" red="0.25098039215686274" green="0.45490196078431372" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -337,6 +346,17 @@
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="19"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wsh-TE-4n9">
+                                <rect key="frame" x="16" y="150" width="85" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Browse to URL">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="browseToURLAction:" destination="M7D-CE-lEI" eventType="touchUpInside" id="d7G-vG-N52"/>
+                                </connections>
+                            </button>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LLx-mo-45i">
                                 <rect key="frame" x="-3" y="185" width="606" height="415"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -380,12 +400,16 @@
                                     <action selector="findOnTheMapTapped:" destination="M7D-CE-lEI" eventType="touchUpInside" id="ry6-pA-tRq"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nAI-Mp-jnp">
+                                <rect key="frame" x="282" y="284" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.81960784313725488" green="0.82352941176470584" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="9ub-sf-uX2" secondAttribute="centerX" id="0Me-AD-iV1"/>
                             <constraint firstAttribute="centerX" secondItem="ASt-rr-6UX" secondAttribute="centerX" constant="1.5" id="2Gc-9Z-Kvz"/>
                             <constraint firstItem="LLx-mo-45i" firstAttribute="leading" secondItem="SYT-Vn-acu" secondAttribute="leadingMargin" constant="-19" id="4lY-7U-mtt"/>
+                            <constraint firstAttribute="centerX" secondItem="nAI-Mp-jnp" secondAttribute="centerX" constant="-0.5" id="6y7-uJ-4T1"/>
                             <constraint firstItem="Zsn-ee-lxv" firstAttribute="firstBaseline" secondItem="9ub-sf-uX2" secondAttribute="baseline" id="7g1-16-fYH"/>
                             <constraint firstItem="4KH-gU-x4l" firstAttribute="leading" secondItem="SYT-Vn-acu" secondAttribute="leadingMargin" constant="-16" id="Bzl-eI-v4h"/>
                             <constraint firstAttribute="centerY" secondItem="ASt-rr-6UX" secondAttribute="centerY" constant="-3" id="CEC-qA-pR5"/>
@@ -397,21 +421,40 @@
                             <constraint firstItem="h0f-nr-NLb" firstAttribute="trailing" secondItem="SYT-Vn-acu" secondAttribute="trailingMargin" id="LlP-M6-jwM"/>
                             <constraint firstItem="ASt-rr-6UX" firstAttribute="leading" secondItem="SYT-Vn-acu" secondAttribute="leadingMargin" constant="-19" id="Nin-26-x1D"/>
                             <constraint firstItem="8eU-XD-KaW" firstAttribute="trailing" secondItem="SYT-Vn-acu" secondAttribute="trailingMargin" constant="16" id="NyM-21-zpx"/>
+                            <constraint firstItem="LLx-mo-45i" firstAttribute="leading" secondItem="wsh-TE-4n9" secondAttribute="trailing" constant="-104" id="QJc-bC-43A"/>
+                            <constraint firstItem="4KH-gU-x4l" firstAttribute="leading" secondItem="wsh-TE-4n9" secondAttribute="trailing" constant="-101" id="Qx8-YC-z8M"/>
+                            <constraint firstAttribute="centerY" secondItem="nAI-Mp-jnp" secondAttribute="centerY" constant="-2.5" id="TJv-UG-qpp"/>
                             <constraint firstItem="ASt-rr-6UX" firstAttribute="top" secondItem="8eU-XD-KaW" secondAttribute="bottom" id="YLy-25-kDj"/>
                             <constraint firstAttribute="centerY" secondItem="9ub-sf-uX2" secondAttribute="centerY" constant="-203" id="YYw-z9-6Hx"/>
+                            <constraint firstItem="wsh-TE-4n9" firstAttribute="top" secondItem="4KH-gU-x4l" secondAttribute="bottom" constant="-32" id="aAd-r7-Wt5"/>
                             <constraint firstItem="8eU-XD-KaW" firstAttribute="top" secondItem="me9-fm-9UR" secondAttribute="bottom" constant="-20" id="amK-lU-i0K"/>
                             <constraint firstAttribute="centerX" secondItem="Zsn-ee-lxv" secondAttribute="centerX" constant="-0.5" id="bG0-bO-qmL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ASt-rr-6UX" secondAttribute="trailing" constant="-16" id="cnB-33-deE"/>
+                            <constraint firstItem="4KH-gU-x4l" firstAttribute="leading" secondItem="wsh-TE-4n9" secondAttribute="trailing" constant="-120" id="fgd-Im-vqc"/>
                             <constraint firstItem="h0f-nr-NLb" firstAttribute="top" secondItem="me9-fm-9UR" secondAttribute="bottom" constant="-4" id="i91-fg-0EO"/>
                             <constraint firstAttribute="centerY" secondItem="LLx-mo-45i" secondAttribute="centerY" constant="-92" id="iyl-cS-Nsc"/>
+                            <constraint firstItem="wsh-TE-4n9" firstAttribute="top" secondItem="LLx-mo-45i" secondAttribute="top" constant="-35" id="mIo-N4-dLK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4KH-gU-x4l" secondAttribute="trailing" constant="-16" id="mLB-Ay-Kj7"/>
                             <constraint firstAttribute="centerX" secondItem="LLx-mo-45i" secondAttribute="centerX" id="pQv-7a-CXS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LLx-mo-45i" secondAttribute="trailing" constant="-19" id="pXs-Pu-eBZ"/>
                             <constraint firstAttribute="centerY" secondItem="4KH-gU-x4l" secondAttribute="centerY" constant="209" id="rub-P3-D49"/>
+                            <constraint firstItem="wsh-TE-4n9" firstAttribute="leading" secondItem="SYT-Vn-acu" secondAttribute="leadingMargin" id="vfU-8y-uoT"/>
                             <constraint firstItem="4KH-gU-x4l" firstAttribute="top" secondItem="me9-fm-9UR" secondAttribute="bottom" constant="-20" id="wT7-eu-Z02"/>
+                            <constraint firstItem="wsh-TE-4n9" firstAttribute="top" secondItem="4KH-gU-x4l" secondAttribute="bottom" constant="-35" id="yZo-KB-Zi4"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Qx8-YC-z8M"/>
+                                <exclude reference="fgd-Im-vqc"/>
+                                <exclude reference="aAd-r7-Wt5"/>
+                                <exclude reference="yZo-KB-Zi4"/>
+                                <exclude reference="QJc-bC-43A"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="nAI-Mp-jnp" id="ezn-CD-q8v"/>
+                        <outlet property="browseToURLButton" destination="wsh-TE-4n9" id="yrU-JB-iYq"/>
                         <outlet property="cancelButton" destination="h0f-nr-NLb" id="3w2-ZA-1yh"/>
                         <outlet property="findOnMapButton" destination="Zsn-ee-lxv" id="cNM-KF-bRl"/>
                         <outlet property="linkTextBox" destination="4KH-gU-x4l" id="xWY-lT-Pgb"/>

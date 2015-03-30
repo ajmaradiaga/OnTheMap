@@ -12,7 +12,7 @@ class LocationsTableViewController: UIViewController, UITableViewDataSource, UIT
 
     @IBOutlet weak var studentsTableView: UITableView!
     
-    var studentLocations = [StudentLocation]()
+    var studentLocations = [StudentInformation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,7 @@ class LocationsTableViewController: UIViewController, UITableViewDataSource, UIT
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.tabBarItem.selectedImage = UIImage(named: "list")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,19 +50,7 @@ class LocationsTableViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCellWithIdentifier("studentLocationCell", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        //cell.imageView = UIImageView(image: UIImage(named: "pin")!)
-        
-        var firstName = ""
-        if studentLocations[indexPath.row].firstName != nil {
-            firstName = studentLocations[indexPath.row].firstName!
-        }
-        
-        var lastName = ""
-        if studentLocations[indexPath.row].lastName != nil {
-            lastName = studentLocations[indexPath.row].lastName!
-        }
-        
-        cell.textLabel?.text = "\(firstName) \(lastName)"
+        cell.textLabel?.text = "\(studentLocations[indexPath.row].getFullName())"
         cell.detailTextLabel?.text = "\(studentLocations[indexPath.row].mapString!)"
         
         return cell

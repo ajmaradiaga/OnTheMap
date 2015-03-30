@@ -38,14 +38,7 @@ class OnTheMapTBC: UITabBarController {
     }
     
     func postLocation(sender: AnyObject) {
-        println("postLocation")
-        /*
-        ParseClient.sharedInstance().postStudentLocation { (success, errorString) -> Void in
-            println("")
-        }*/
-        
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingVC") as UIViewController
-        
         self.presentViewController(controller, animated: true, completion: nil)
     }
 }

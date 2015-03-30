@@ -14,7 +14,7 @@ class ParseClient: NSObject{
     var session: NSURLSession
     var refreshingStudentLocations: Bool = false
     
-    var allStudentLocations: [StudentLocation] = []
+    var allStudentLocations: [StudentInformation] = []
     
     override init() {
         session = NSURLSession.sharedSession()
@@ -24,7 +24,7 @@ class ParseClient: NSObject{
     func refreshStudentLocations(completionHandler: (success: Bool, errorString: String?) -> Void) {
         if !refreshingStudentLocations {
             refreshingStudentLocations = true
-            var tempStudentLocations: [StudentLocation] = []
+            var tempStudentLocations: [StudentInformation] = []
             let request = NSMutableURLRequest(URL: NSURL(string: Methods.StudentLocation)!)
             request.addValue(Constants.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
             request.addValue(Constants.APIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
@@ -33,11 +33,11 @@ class ParseClient: NSObject{
                 if error != nil { // Handle error...
                     completionHandler(success: false, errorString: error.description)
                 } else {
-                    println(NSString(data: data, encoding: NSUTF8StringEncoding))
+                    //println(NSString(data: data, encoding: NSUTF8StringEncoding))
                     NetworkHelper.parseJSONWithCompletionHandler(data) { (result, error) -> Void in
                         if let results = result["results"] as? [AnyObject] {
                             for result in results {
-                                var sl = StudentLocation(objectId:result["objectId"] as? String,uniqueKey:result["uniqueKey"] as? String,firstName:result["firstName"] as? String, lastName: result["lastName"] as? String,mapString: result["mapString"] as? String, mediaURL: result["mediaURL"] as? String, latitude: (result["latitude"] as? Double), longitude: result["longitude"] as? Double)
+                                var sl = StudentInformation(dictionary: result as NSDictionary)
                                 tempStudentLocations.append(sl)
                             }
                             self.allStudentLocations = tempStudentLocations
@@ -56,7 +56,7 @@ class ParseClient: NSObject{
     func postStudentLocation(mapString: String, location: CLLocation, mediaURL: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         if !refreshingStudentLocations {
             refreshingStudentLocations = true
-            var tempStudentLocations: [StudentLocation] = []
+            var tempStudentLocations: [StudentInformation] = []
             let request = NSMutableURLRequest(URL: NSURL(string: Methods.StudentLocation)!)
             request.HTTPMethod = "POST"
             request.addValue(Constants.ApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")

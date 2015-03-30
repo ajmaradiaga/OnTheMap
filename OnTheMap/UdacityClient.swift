@@ -29,18 +29,29 @@ class UdacityClient: NSObject{
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                completionHandler(success: false, errorString: "Error communicating with Udacity API Session")
+            if error != nil {
+                // Handle network error…
+                completionHandler(success: false, errorString: "Error communicating with Udacity API Session.")
             } else {
                 let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                //println(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                
+            
                 NetworkHelper.parseJSONWithCompletionHandler(newData, completionHandler: { (result, error) -> Void in
-                    //Grab account details to extract the userId
-                    let accountDetails = result["account"] as NSDictionary
-                    self.user.userId = accountDetails["key"] as? NSString
-                    self.getPublicUserData()
-                    completionHandler(success: true, errorString: nil)
+                    
+                    //println(result as NSDictionary)
+                    if error == nil {
+                        //Handle error returned by the API
+                        if let errorString = result["error"] as? String {
+                            completionHandler(success: false, errorString: errorString)
+                        } else {
+                            //Grab account details to extract the userId
+                            let accountDetails = result["account"] as NSDictionary
+                            self.user.userId = accountDetails["key"] as? NSString
+                            self.getPublicUserData()
+                            completionHandler(success: true, errorString: nil)
+                        }
+                    } else {
+                        completionHandler(success: false, errorString: error!.description)
+                    }
                 })
             }
         }
