@@ -37,7 +37,7 @@ class ParseClient: NSObject{
                     NetworkHelper.parseJSONWithCompletionHandler(data) { (result, error) -> Void in
                         if let results = result["results"] as? [AnyObject] {
                             for result in results {
-                                var sl = StudentInformation(dictionary: result as NSDictionary)
+                                var sl = StudentInformation(dictionary: result as! NSDictionary)
                                 tempStudentLocations.append(sl)
                             }
                             self.allStudentLocations = tempStudentLocations
@@ -76,6 +76,8 @@ class ParseClient: NSObject{
                 self.refreshingStudentLocations = false
             }
             task.resume()
+        } else {
+            completionHandler(success: false, errorString: "Application is currently refreshing student location. Please try again.")
         }
     }
     

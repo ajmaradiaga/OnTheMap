@@ -14,11 +14,12 @@ extension UdacityClient {
         // MARK: URLs
         static let BaseURL : String = ""
         static let SignInURL : String = "https://www.udacity.com/account/auth#!/signin"
-        
+        static let JSONType : String = "application/json"
     }
     
     struct Methods{
         static let Session: String = "https://www.udacity.com/api/session"
+        static let PublicUser: String = "https://www.udacity.com/api/users"
     }
 
 }

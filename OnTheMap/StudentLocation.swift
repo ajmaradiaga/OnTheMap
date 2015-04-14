@@ -29,17 +29,19 @@ struct StudentInformation {
         longitude = dictionary["longitude"] as? Double
     }
     
-    func getFullName() -> String{
-        var firstName = ""
-        if self.firstName != nil {
-            firstName = self.firstName!
+    var fullName : String {
+        get {
+            var firstName = ""
+            if self.firstName != nil {
+                firstName = self.firstName!
+            }
+            
+            var lastName = ""
+            if self.lastName != nil {
+                lastName = self.lastName!
+            }
+            
+            return "\(firstName) \(lastName)"
         }
-        
-        var lastName = ""
-        if self.lastName != nil {
-            lastName = self.lastName!
-        }
-        
-        return "\(firstName) \(lastName)"
     }
 }

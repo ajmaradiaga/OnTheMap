@@ -28,6 +28,7 @@
 		6B1E84691AC637F800EA4BE8 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1E84681AC637F800EA4BE8 /* InformationPostingViewController.swift */; };
 		6B1E846B1AC6A23000EA4BE8 /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1E846A1AC6A23000EA4BE8 /* LocationsTableViewController.swift */; };
 		6B1E846F1AC7BA3100EA4BE8 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1E846E1AC7BA3100EA4BE8 /* Helper.swift */; };
+		6BEFDACC1ADD123C002B8A36 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEFDACB1ADD123C002B8A36 /* TextFieldDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		6B1E84681AC637F800EA4BE8 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		6B1E846A1AC6A23000EA4BE8 /* LocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
 		6B1E846E1AC7BA3100EA4BE8 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		6BEFDACB1ADD123C002B8A36 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				6B1E846A1AC6A23000EA4BE8 /* LocationsTableViewController.swift */,
 				6B1E842E1AC2A5FE00EA4BE8 /* LoginViewController.swift */,
 				6B1E845C1AC3FC0600EA4BE8 /* MapTabViewController.swift */,
+				6BEFDACB1ADD123C002B8A36 /* TextFieldDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				6B1E84591AC3E88600EA4BE8 /* UdacityClient.swift in Sources */,
 				6B1E845D1AC3FC0600EA4BE8 /* MapTabViewController.swift in Sources */,
 				6B1E845B1AC3E8BD00EA4BE8 /* UdacityConstants.swift in Sources */,
+				6BEFDACC1ADD123C002B8A36 /* TextFieldDelegate.swift in Sources */,
 				6B1E84691AC637F800EA4BE8 /* InformationPostingViewController.swift in Sources */,
 				6B1E84511AC2A7AB00EA4BE8 /* ParseClient.swift in Sources */,
 				6B1E84651AC5370000EA4BE8 /* UdacityUser.swift in Sources */,
@@ -513,6 +517,7 @@
 				6B1E84481AC2A5FE00EA4BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6B1E84491AC2A5FE00EA4BE8 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +526,7 @@
 				6B1E844B1AC2A5FE00EA4BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -24,13 +24,13 @@ class UdacityClient: NSObject{
         
         let request = NSMutableURLRequest(URL: NSURL(string: UdacityClient.Methods.Session)!)
         request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(Constants.JSONType, forHTTPHeaderField: "Accept")
+        request.addValue(Constants.JSONType, forHTTPHeaderField: "Content-Type")
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
-                // Handle network error…
+                // Handle network error
                 completionHandler(success: false, errorString: "Error communicating with Udacity API Session.")
             } else {
                 let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
@@ -44,10 +44,9 @@ class UdacityClient: NSObject{
                             completionHandler(success: false, errorString: errorString)
                         } else {
                             //Grab account details to extract the userId
-                            let accountDetails = result["account"] as NSDictionary
+                            let accountDetails = result["account"] as! NSDictionary
                             self.user.userId = accountDetails["key"] as? NSString
-                            self.getPublicUserData()
-                            completionHandler(success: true, errorString: nil)
+                            self.getPublicUserData(completionHandler)
                         }
                     } else {
                         completionHandler(success: false, errorString: error!.description)
@@ -59,21 +58,22 @@ class UdacityClient: NSObject{
     
     }
     
-    func getPublicUserData() {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(user.userId!)")!)
+    func getPublicUserData(completionHandler: (success: Bool, errorString: String?) -> Void) {
+        let request = NSMutableURLRequest(URL: NSURL(string: "\(UdacityClient.Methods.PublicUser)/\(user.userId!)")!)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error...
-                return
+                completionHandler(success: false, errorString: "Error communicating with Udacity API Users.")
             }
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            //println(NSString(data: newData, encoding: NSUTF8StringEncoding))
             
             NetworkHelper.parseJSONWithCompletionHandler(newData, completionHandler: { (result, error) -> Void in
                 //Grab account details to extract the userId
-                let userDetails = result["user"] as NSDictionary
+                let userDetails = result["user"] as! NSDictionary
                 self.user.firstName = userDetails["first_name"] as? NSString
                 self.user.lastName = userDetails["last_name"] as? NSString
+                
+                completionHandler(success: true, errorString: nil)
             })
         }
         task.resume()

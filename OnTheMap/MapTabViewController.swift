@@ -38,7 +38,7 @@ class MapTabViewController: UIViewController, MKMapViewDelegate {
         for studentLocation in ParseClient.sharedInstance().allStudentLocations {
             var studentLocationAnnotation = MKPointAnnotation()
             studentLocationAnnotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
-            studentLocationAnnotation.title = "\(studentLocation.getFullName())"
+            studentLocationAnnotation.title = "\(studentLocation.fullName)"
             studentLocationAnnotation.subtitle = "\(studentLocation.mediaURL!)"
             self.mapView.addAnnotation(studentLocationAnnotation)
         }
@@ -62,7 +62,7 @@ class MapTabViewController: UIViewController, MKMapViewDelegate {
             pinView!.pinColor = .Purple
 
             //Prepare disclosure button that will be added to the pin
-            var disclosureButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+            var disclosureButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
             disclosureButton.addTarget(self, action: Selector("goToLink:"), forControlEvents: UIControlEvents.TouchUpInside)
             
             pinView!.rightCalloutAccessoryView = disclosureButton

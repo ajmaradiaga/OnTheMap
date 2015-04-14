@@ -29,6 +29,8 @@ class InformationPostingViewController: UIViewController {
     var mapString: String?
     var alertVC: UIAlertController?
     
+    var textDelegate = TextFieldDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -47,6 +49,7 @@ class InformationPostingViewController: UIViewController {
         var placeholderConfig = NSAttributedString(string: placeholderText, attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
         textBox.attributedPlaceholder = placeholderConfig
         textBox.tintColor = UIColor.whiteColor()
+        textBox.delegate = textDelegate
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,11 +61,11 @@ class InformationPostingViewController: UIViewController {
         
         var geoCoder = CLGeocoder()
         
-        Helper.toogleViewFunctionality(self.view, activityIndicator: self.activityIndicator, enable: true)
+        Helper.updateCurrentView(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
         
         geoCoder.geocodeAddressString(locationTextBox.text, completionHandler: { (placemarks, error) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                Helper.toogleViewFunctionality(self.view, activityIndicator: self.activityIndicator, enable: false)
+                Helper.updateCurrentView(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
             })
             if error == nil {
                 //Update UI
@@ -83,7 +86,7 @@ class InformationPostingViewController: UIViewController {
                 //Process placemarks
                 for placemark in placemarks
                 {
-                    self.userLocation = (placemark as CLPlacemark).location
+                    self.userLocation = (placemark as! CLPlacemark).location
                     
                     var enteredLocationAnnotation = MKPointAnnotation()
                     enteredLocationAnnotation.coordinate = self.userLocation!.coordinate
@@ -104,7 +107,9 @@ class InformationPostingViewController: UIViewController {
                     self.mapView.setRegion(region, animated: true)
                 }
             } else {
-                self.raiseInformationalAlert("Error", message: "Location is invalid. Please enter a valid Location.")
+                self.alertVC = Helper.raiseInformationalAlert(inViewController: self, withTitle:"Error", message: "Location is invalid. Please enter a valid Location.", completionHandler: { (alertAction) -> Void in
+                    self.alertVC!.dismissViewControllerAnimated(true, completion: nil)
+                })
             }
         })
     }
@@ -113,10 +118,10 @@ class InformationPostingViewController: UIViewController {
         var mediaURL = self.linkTextBox.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         
         if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
-            Helper.toogleViewFunctionality(self.view, activityIndicator: activityIndicator, enable: true)
+            Helper.updateCurrentView(self.view, withActivityIndicator: activityIndicator, andAnimate: true)
             ParseClient.sharedInstance().postStudentLocation(self.mapString!, location: self.userLocation!, mediaURL: mediaURL, completionHandler: { (success, errorString) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    Helper.toogleViewFunctionality(self.view, activityIndicator: self.activityIndicator, enable: false)
+                    Helper.updateCurrentView(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
                 })
                 if success {
                     self.dismissViewControllerAnimated(true, completion: nil)
@@ -125,7 +130,9 @@ class InformationPostingViewController: UIViewController {
                 }
             })
         } else {
-            self.raiseInformationalAlert("Error", message: "Link is invalid. Please enter a valid URL.")
+            alertVC = Helper.raiseInformationalAlert(inViewController: self, withTitle:"Error", message: "Link is invalid. Please enter a valid URL.", completionHandler: { (alertAction) -> Void in
+                self.alertVC!.dismissViewControllerAnimated(true, completion: nil)
+            })
         }
     }
     
@@ -138,18 +145,10 @@ class InformationPostingViewController: UIViewController {
         if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
            UIApplication.sharedApplication().openURL(NSURL(string: mediaURL)!)
         } else {
-            self.raiseInformationalAlert("Error", message: "Link is invalid. Please enter a valid URL.")
+            alertVC = Helper.raiseInformationalAlert(inViewController: self, withTitle:"Error", message: "Link is invalid. Please enter a valid URL.", completionHandler: { (alertAction) -> Void in
+                self.alertVC!.dismissViewControllerAnimated(true, completion: nil)
+            })
         }
-    }
-    
-    
-    func raiseInformationalAlert(title: String, message: String) {
-        alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        //Add Actions to UIAlertController
-        alertVC!.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: alertActionHandler))
-        
-        self.presentViewController(alertVC!, animated: true, completion: nil)
     }
     
     func raiseRetryAlert(title: String, message: String) {

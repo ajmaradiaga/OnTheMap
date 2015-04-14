@@ -11,7 +11,9 @@ import UIKit
 
 class Helper: NSObject {
     
-    class func toogleViewFunctionality(view: UIView, activityIndicator: UIActivityIndicatorView, enable: Bool) {
+    
+    
+    class func updateCurrentView(view : UIView, withActivityIndicator activityIndicator: UIActivityIndicatorView, andAnimate enable: Bool) {
         if enable {
             view.alpha = 0.6
             activityIndicator.startAnimating()
@@ -22,6 +24,17 @@ class Helper: NSObject {
             UIApplication.sharedApplication().endIgnoringInteractionEvents()
             
         }
+    }
+    
+    class func raiseInformationalAlert(inViewController viewController: UIViewController, withTitle title: String, message: String, completionHandler: ((UIAlertAction!) -> Void)) -> UIAlertController {
+        var alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        //Add Actions to UIAlertController
+        alertVC.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: completionHandler))
+        
+        viewController.presentViewController(alertVC, animated: true, completion: nil)
+        
+        return alertVC
     }
     
 }
